@@ -1,1 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Onkar Bhinge</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.about-hero {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem) 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
+.about-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: border-color 0.25s, transform 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.info-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(56,189,248,0.03));
+  pointer-events: none;
+}
+.info-card:hover {
+  border-color: rgba(56,189,248,0.3);
+  transform: translateY(-3px);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.card-body {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Skills section */
+.skills-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.skill-group-name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Profile card */
+.profile-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) 3rem;
+  position: relative;
+  z-index: 1;
+}
+.profile-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.profile-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(56,189,248,0.4);
+  flex-shrink: 0;
+  background: var(--surface2);
+}
+.profile-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.profile-avatar .fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.profile-info { flex: 1; min-width: 200px; }
+.profile-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+.profile-role {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.profile-bio {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 500px;
+}
+.profile-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="dot-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">OB<span>.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta" id="navCta">Let's Talk</a>
+  <button class="nav-burger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+  <!-- HERO -->
+  <div class="about-hero">
+    <div class="section-eyebrow">About Me</div>
+    <h1 class="section-title">The mind<br/>behind the code</h1>
+    <p class="section-subtitle">B.Tech student in AI &amp; ML, passionate about building intelligent systems and futuristic digital experiences.</p>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <div class="profile-inner">
+      <div class="profile-avatar">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/profile.jpg"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+             alt="Onkar Bhinge"/>
+        <div class="fallback" style="display:none;">OB</div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Onkar Bhinge</div>
+        <div class="profile-role">AI &amp; Web Developer · MIT Vishwaprayag University</div>
+        <p class="profile-bio">Currently pursuing B.Tech in Artificial Intelligence &amp; Machine Learning. Passionate about creating impactful technology that bridges the gap between AI capabilities and real-world human needs.</p>
+      </div>
+      <div class="profile-actions">
+        <a href="contact.html" class="btn btn-primary">Hire Me</a>
+        <a href="https://www.linkedin.com/in/onkar-bhinge-427904373/" class="btn btn-outline" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="about-grid">
+    <div class="info-card">
+      <span class="card-icon">🎓</span>
+      <div class="card-label">Education</div>
+      <div class="card-title">B.Tech — AI &amp; Machine Learning</div>
+      <div class="card-body">Currently enrolled at <strong style="color:var(--text)">MIT Vishwaprayag University</strong>, deepening expertise in artificial intelligence, machine learning algorithms, and data-driven decision making.</div>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">💡</span>
+      <div class="card-label">Interests</div>
+      <div class="card-title">Coding, AI &amp; Web Development</div>
+      <div class="card-body">Passionate about the intersection of AI and web technologies. Exploring neural networks, computer vision, and building full-stack applications that harness the power of intelligent systems.</div>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">🚀</span>
+      <div class="card-label">Career Goal</div>
+      <div class="card-title">Founding a Tech Company</div>
+      <div class="card-body">Aspiring to build a <strong style="color:var(--text)">successful tech company</strong> focused on creating futuristic, impactful technology products that solve real-world problems at scale.</div>
+    </div>
+
+    <div class="info-card">
+      <span class="card-icon">⭐</span>
+      <div class="card-label">Strengths</div>
+      <div class="card-title">Problem Solving &amp; Creativity</div>
+      <div class="card-body">Strong foundation in <strong style="color:var(--text)">analytical thinking, creative problem solving, and critical reasoning</strong>. Committed to continuous learning and staying ahead of the technology curve.</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="skills-section">
+    <div class="section-eyebrow">Technical Skills</div>
+    <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 2rem;">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-name">AI &amp; Machine Learning</div>
+        <div class="skill-list">
+          <span class="tag tag-blue">Python</span>
+          <span class="tag tag-blue">TensorFlow</span>
+          <span class="tag tag-blue">OpenCV</span>
+          <span class="tag tag-blue">Face Recognition</span>
+          <span class="tag tag-blue">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Web Development</div>
+        <div class="skill-list">
+          <span class="tag tag-purple">HTML / CSS</span>
+          <span class="tag tag-purple">JavaScript</span>
+          <span class="tag tag-purple">React</span>
+          <span class="tag tag-purple">Node.js</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Tools &amp; Platforms</div>
+        <div class="skill-list">
+          <span class="tag tag-green">Git &amp; GitHub</span>
+          <span class="tag tag-green">VS Code</span>
+          <span class="tag tag-green">Linux</span>
+          <span class="tag tag-green">Jupyter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Onkar Bhinge — All rights reserved</p>
+    <div class="footer-links">
+      <a href="https://github.com/onkarpandurangbhinge-dev" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/onkar-bhinge-427904373/" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/onkar_o11" target="_blank">Instagram</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+const navCta = document.getElementById('navCta');
+burger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  navCta.classList.toggle('open-cta');
+});
+</script>
+</body>
+</html>
