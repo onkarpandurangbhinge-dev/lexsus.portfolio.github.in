@@ -1,1 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Onkar Bhinge</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.contact-hero {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem) 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
+.contact-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* LEFT: INFO */
+.contact-info { display: flex; flex-direction: column; gap: 2rem; }
+
+.contact-intro {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.contact-methods { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.2s;
+}
+.contact-method:hover {
+  border-color: rgba(56,189,248,0.35);
+  transform: translateX(4px);
+}
+.cm-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.cm-icon-mail { background: rgba(56,189,248,0.1); }
+.cm-icon-phone { background: rgba(52,211,153,0.1); }
+.cm-icon-li { background: rgba(129,140,248,0.1); }
+.cm-icon-gh { background: rgba(248,113,113,0.1); }
+.cm-icon-ig { background: rgba(251,191,36,0.1); }
+.cm-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+.cm-value {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  word-break: break-all;
+}
+
+/* RIGHT: FORM */
+.contact-form-wrap { }
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+}
+.form-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.form-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: rgba(56,189,248,0.5);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.06);
+}
+.form-group textarea { min-height: 130px; }
+.form-group select option { background: var(--surface2); }
+
+.form-submit {
+  width: 100%;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.form-submit:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(56,189,248,0.25);
+}
+.form-submit:active { transform: translateY(0); }
+
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 1rem;
+  letter-spacing: 0.03em;
+}
+
+/* Success msg */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 2rem 0;
+}
+.form-success.show { display: block; }
+.success-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.success-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent3);
+  margin-bottom: 0.5rem;
+}
+.success-msg { font-size: 0.9rem; color: var(--text-dim); }
+
+@media (max-width: 800px) {
+  .contact-body { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="dot-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">OB<span>.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta" id="navCta">Let's Talk</a>
+  <button class="nav-burger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+  <div class="contact-hero">
+    <div class="section-eyebrow">Contact</div>
+    <h1 class="section-title">Let's build<br/>something together</h1>
+    <p class="section-subtitle">Have an idea, opportunity, or just want to say hello? My inbox is always open.</p>
+  </div>
+
+  <div class="contact-body">
+    <!-- LEFT INFO -->
+    <div class="contact-info">
+      <p class="contact-intro">I'm currently open to internships, freelance projects, and collaborative opportunities in AI, machine learning, and web development. Let's connect!</p>
+
+      <div class="contact-methods">
+        <a href="mailto:onkarpandurangbhinge@gmail.com?subject=Hello Onkar&body=Hi Onkar, I came across your portfolio..." class="contact-method">
+          <div class="cm-icon cm-icon-mail">✉️</div>
+          <div>
+            <div class="cm-label">Email</div>
+            <div class="cm-value">onkarpandurangbhinge@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+918275575005" class="contact-method">
+          <div class="cm-icon cm-icon-phone">📞</div>
+          <div>
+            <div class="cm-label">Phone</div>
+            <div class="cm-value">+91 8275575005</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/onkar-bhinge-427904373/" class="contact-method" target="_blank">
+          <div class="cm-icon cm-icon-li">💼</div>
+          <div>
+            <div class="cm-label">LinkedIn</div>
+            <div class="cm-value">onkar-bhinge-427904373</div>
+          </div>
+        </a>
+        <a href="https://github.com/onkarpandurangbhinge-dev" class="contact-method" target="_blank">
+          <div class="cm-icon cm-icon-gh">🐙</div>
+          <div>
+            <div class="cm-label">GitHub</div>
+            <div class="cm-value">onkarpandurangbhinge-dev</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/onkar_o11" class="contact-method" target="_blank">
+          <div class="cm-icon cm-icon-ig">📸</div>
+          <div>
+            <div class="cm-label">Instagram</div>
+            <div class="cm-value">@onkar_o11</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="contact-form-wrap">
+      <div class="form-card">
+        <div id="formContent">
+          <div class="form-title">Send a message</div>
+          <div class="form-sub">I'll get back to you within 24 hours.</div>
+
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Rahul Sharma" required/>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="rahul@example.com" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject">
+                <option value="collaboration">Project Collaboration</option>
+                <option value="internship">Internship Opportunity</option>
+                <option value="freelance">Freelance Work</option>
+                <option value="general">General Inquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project or opportunity..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              Send Message <span>→</span>
+            </button>
+            <p class="form-note">This will open your email client with the details pre-filled.</p>
+          </form>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Message ready to send!</div>
+          <p class="success-msg" style="margin-top: 0.5rem;">Your email client should have opened. If not, email me directly at onkarpandurangbhinge@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Onkar Bhinge — All rights reserved</p>
+    <div class="footer-links">
+      <a href="https://github.com/onkarpandurangbhinge-dev" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/onkar-bhinge-427904373/" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/onkar_o11" target="_blank">Instagram</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+const navCta = document.getElementById('navCta');
+burger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  navCta.classList.toggle('open-cta');
+});
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').options[document.getElementById('subject').selectedIndex].text;
+  const message = document.getElementById('message').value;
+
+  const mailTo = `mailto:onkarpandurangbhinge@gmail.com?subject=${encodeURIComponent(subject + ' from ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+  window.location.href = mailTo;
+
+  document.getElementById('formSuccess').classList.add('show');
+  document.getElementById('contactForm').reset();
+  setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 6000);
+}
+</script>
+</body>
+</html>
