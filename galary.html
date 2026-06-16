@@ -1,1 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gallery — Onkar Bhinge</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.gallery-hero {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem) 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
+.gallery-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Masonry-like grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  grid-auto-rows: 280px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  background: var(--surface2);
+  transition: border-color 0.25s, transform 0.25s;
+}
+/* Make some items taller for variation */
+.gallery-item:nth-child(3) { grid-row: span 2; }
+.gallery-item:nth-child(6) { grid-row: span 2; }
+
+.gallery-item:hover {
+  border-color: rgba(56,189,248,0.4);
+  transform: scale(0.99);
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,9,20,0.8) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.go-zoom {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: white;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+}
+
+/* Placeholder when no image */
+.gallery-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  opacity: 0.2;
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+}
+.lightbox.open { display: flex; }
+.lb-img-wrap {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+.lb-img-wrap img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: block;
+}
+.lb-close {
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+  z-index: 10;
+}
+.lb-close:hover { border-color: var(--accent); color: var(--accent); }
+.lb-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+  z-index: 10;
+}
+.lb-nav:hover { border-color: var(--accent); color: var(--accent); }
+.lb-prev { left: 1rem; }
+.lb-next { right: 1rem; }
+.lb-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  z-index: 10;
+}
+</style>
+</head>
+<body>
+<div class="dot-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">OB<span>.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta" id="navCta">Let's Talk</a>
+  <button class="nav-burger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+  <div class="gallery-hero">
+    <div class="section-eyebrow">Gallery</div>
+    <h1 class="section-title">A visual<br/>journal</h1>
+    <p class="section-subtitle">Moments, memories, and milestones captured along the journey of building, learning, and growing.</p>
+  </div>
+
+  <div class="gallery-section">
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item" onclick="openLb(0)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery1.jpg" alt="Gallery 1" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(1)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery2.jpg" alt="Gallery 2" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(2)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery3.jpg" alt="Gallery 3" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(3)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery4.jpg" alt="Gallery 4" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(4)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery5.jpg" alt="Gallery 5" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(5)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery6.jpg" alt="Gallery 6" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(6)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery7.jpg" alt="Gallery 7" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLb(7)">
+        <img src="https://my-portfolio-github-io-nu.vercel.app/assets/gallery8.jpg" alt="Gallery 8" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="gallery-placeholder">🖼️</div>
+        <div class="gallery-overlay"><span class="go-zoom">View</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Onkar Bhinge — All rights reserved</p>
+    <div class="footer-links">
+      <a href="https://github.com/onkarpandurangbhinge-dev" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/onkar-bhinge-427904373/" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/onkar_o11" target="_blank">Instagram</a>
+    </div>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-nav lb-prev" onclick="navigate(-1)">‹</button>
+  <div class="lb-img-wrap">
+    <img id="lbImg" src="" alt="Gallery image"/>
+  </div>
+  <button class="lb-nav lb-next" onclick="navigate(1)">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<script>
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+const navCta = document.getElementById('navCta');
+burger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  navCta.classList.toggle('open-cta');
+});
+
+const images = Array.from(document.querySelectorAll('.gallery-item img')).map(i => i.src);
+let current = 0;
+
+function openLb(i) {
+  current = i;
+  updateLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navigate(dir) {
+  current = (current + dir + images.length) % images.length;
+  updateLb();
+}
+function updateLb() {
+  document.getElementById('lbImg').src = images[current];
+  document.getElementById('lbCounter').textContent = `${current + 1} / ${images.length}`;
+}
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) closeLb();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (e.key === 'ArrowRight') navigate(1);
+});
+</script>
+</body>
+</html>
